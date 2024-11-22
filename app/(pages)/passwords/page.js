@@ -238,29 +238,7 @@ const Passwordspage = () => {
 
               {/* ///////////////////////////////////////////////////////// passwordArray */}
 
-              <div className='slide'>
-                <span className='w-2/5 text-center'>Wassup Biatch</span>
-                <span className='w-1/5 text-center'>Wassup Biatch</span>
-                <span style={{ WebkitTextSecurity: "disc" }} className='w-1/5 text-center'>Wassup Biatch</span>
-                <span className='w-1/5 text-center max-h-9'>
-                  <button className='edit '>
-                    <lord-icon
-                      src="https://cdn.lordicon.com/gwlusjdu.json"
-                      trigger="hover"
-                      colors="primary:#000000"
-                      className='w-6 align-middle'>
-                    </lord-icon>
-                  </button>
-                  <button className='edit '>
-                    <lord-icon
-                      src="https://cdn.lordicon.com/skkahier.json"
-                      trigger="hover"
-                      colors="primary:#000000"
-                      className='w-6 ml-5 align-middle'>
-                    </lord-icon>
-                  </button>
-                </span>
-              </div>
+
 
 
               {passwordArray ? (passwordArray.map((pass, index) => {

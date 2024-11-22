@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import Script from "next/script";
 
 
 
@@ -25,7 +26,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
 
       <head>
-        <script src="https://cdn.lordicon.com/lordicon.js"></script>
+        <Script src="https://cdn.lordicon.com/lordicon.js"></Script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
