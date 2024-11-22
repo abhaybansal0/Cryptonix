@@ -1,0 +1,17 @@
+div input{
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+}
+
+.slide{
+    width: 100%;
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1)) /* #ffffff */;
+    --tw-text-opacity: 1;
+    color: rgb(0 0 0 / var(--tw-text-opacity, 1)) /* #000000 */;
+    padding: 0.7rem /* 8px */;
+    border-width: 1px;
+    display: flex;
+    
+}
+

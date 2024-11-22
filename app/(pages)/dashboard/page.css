@@ -1,0 +1,23 @@
+
+
+
+.welcometitle{
+    font-weight: 600;
+}
+
+.aboutbtn{
+    padding: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.hov_hilight{
+    padding: 0.4rem;
+    border-radius: 0.7rem;
+    transition: all 0.1s ease-in;
+
+}
+
+.hov_hilight:hover{
+    background-color: rgb(191, 199, 207);
+}

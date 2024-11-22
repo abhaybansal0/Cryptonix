@@ -1,0 +1,11 @@
+.hilightgoogel{
+background: linear-gradient(90deg, 
+    #4285F4 0%,   /* Blue */
+    #34A853 33%,  /* Green */
+    #FBBC05 66%,  /* Yellow */
+    #EA4335 100%  /* Red */
+);
+background-clip: text;
+-webkit-text-fill-color: transparent;
+font-weight: 600;
+}
