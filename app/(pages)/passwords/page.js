@@ -2,42 +2,70 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './page.css'
 import Form from 'next/form'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 import { v4 as uuidv4 } from 'uuid';
 
-const Passwords = () => {
-
-  // useEffect(() => {
-  //   console.log(Passwordsarray);
 
 
 
-  // }, [])
 
 
 
-  const [Passwordsarray, setPasswords] = useState([
-    // {
-    //   site: 'Abhay',
-    //   username: 'JHNJU',
-    //   password: 'CMOSS'
-    // },
-    // {
-    //   site: 'Abhay',
-    //   username: 'JHNJU',
-    //   password: 'CMOSS'
-    // },
-    // {
-    //   site: 'Abhay',
-    //   username: 'JHNJU',
-    //   password: 'CMOSS'
-    // },
 
-  ])
+const Passwordspage = () => {
+
+  const [passwordArray, setPasswords] = useState([]);
+
+  // Fetch passwords from server (GET)
+  useEffect(() => {
+    const fetchPasswords = async () => {
+      try {
+        const response = await fetch('/api/passwords', {
+          method: 'GET',
+          headers: {
+            "Content-Type": "application/json",
+          }
+        });
+        const data = await response.json();
+        console.log(data);
+
+        setPasswords(Array.isArray(data) ? data : [data]);
+
+        
+      } catch (error) {
+        console.error("Error fetching passwords:", error);
+      }
+    };
+
+    fetchPasswords();
+  }, []);
+
+  // Send new passwords to the server (POST)
+  useEffect(() => {
+    if (passwordArray.length === 0) return; // Don't run POST if array is empty
+
+    const savePasswords = async () => {
+      try {
+        const response = await fetch('/api/passwords', {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(passwordArray),
+        });
+        const result = await response.json();
+        console.log('Passwords were saved');
+      } catch (error) {
+        console.error('Error saving passwords:', error);
+      }
+    };
+
+    savePasswords();
+  }, [passwordArray]);
 
 
-  const nooms = useRef(Passwordsarray.length)
+
+  const nooms = useRef(passwordArray.length)
 
 
   const [formdata, setFormdata] = useState({
@@ -57,19 +85,10 @@ const Passwords = () => {
     if (formdata.password.trim() == '',
       formdata.site.trim() == '',
       formdata.password.trim() == '') {
-      return toast('Please Fill All The Fields!', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      return alert('Fill All the Fileds!')
     }
 
-    setPasswords([...Passwordsarray, { ...formdata, id: uuidv4() }]);
+    setPasswords([...passwordArray, { ...formdata, id: uuidv4() }]);
 
     console.log("Info Submitted: ", formdata);
     setFormdata({ site: '', username: '', password: '' })
@@ -77,26 +96,16 @@ const Passwords = () => {
 
 
   const DeletePass = (id) => {
-    setPasswords(Passwordsarray.filter((item) => item.id != id))
+    setPasswords(passwordArray.filter((item) => item.id != id))
+    console.log('Following Password is Being Deleted: ', formdata);
 
-    return toast(`Password was Successfully Deleted!!`, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
   }
   const EditPass = (id) => {
-    const pass_set = Passwordsarray.filter((set) => set.id == id)[0];
+    const pass_set = passwordArray.filter((set) => set.id == id)[0];
 
     setFormdata({ site: `${pass_set.site}`, username: `${pass_set.username}`, password: `${pass_set.password}`, id: `${pass_set.id}` })
 
-    console.log('Following Password is Being Deleted: ', formdata);
-    setPasswords(Passwordsarray.filter((item) => item.id != id))
+    setPasswords(passwordArray.filter((item) => item.id != id))
 
 
 
@@ -146,21 +155,7 @@ const Passwords = () => {
   return (
 
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover= {false}
-        theme="light"
-        transition="Bounce"
-      />
-      {/* Same as */}
-      <ToastContainer />
+
       <div >
         <div className="container  max-w-7/9 mx-auto">
 
@@ -241,7 +236,7 @@ const Passwords = () => {
 
 
 
-              {/* ///////////////////////////////////////////////////////// Passwordsarray */}
+              {/* ///////////////////////////////////////////////////////// passwordArray */}
 
               <div className='slide'>
                 <span className='w-2/5 text-center'>Wassup Biatch</span>
@@ -268,7 +263,7 @@ const Passwords = () => {
               </div>
 
 
-              {Passwordsarray ? (Passwordsarray.map((pass, index) => {
+              {passwordArray ? (passwordArray.map((pass, index) => {
                 return (
                   <Pass key={index} pass={pass} index={index} />
                 )
@@ -289,4 +284,4 @@ const Passwords = () => {
   )
 }
 
-export default Passwords
+export default Passwordspage
