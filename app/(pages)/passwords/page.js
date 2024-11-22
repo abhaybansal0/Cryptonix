@@ -2,6 +2,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './page.css'
 import Form from 'next/form'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { v4 as uuidv4 } from 'uuid';
 
 const Passwords = () => {
 
@@ -34,7 +37,7 @@ const Passwords = () => {
   ])
 
 
-  const id = useRef(Passwordsarray.length)
+  const nooms = useRef(Passwordsarray.length)
 
 
   const [formdata, setFormdata] = useState({
@@ -54,28 +57,52 @@ const Passwords = () => {
     if (formdata.password.trim() == '',
       formdata.site.trim() == '',
       formdata.password.trim() == '') {
-      return alert('Fill All Fields.')
+      return toast('Please Fill All The Fields!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
+
+    setPasswords([...Passwordsarray, { ...formdata, id: uuidv4() }]);
+
     console.log("Info Submitted: ", formdata);
-
-    setPasswords([...Passwordsarray, formdata]);
-
     setFormdata({ site: '', username: '', password: '' })
-
   }
 
 
-  // const SavePasswords  = () =>{
-  //   console.log(formdata);
-  //   let passwords = localStorage.getItem('passwords')
-  //   if(passwords){
-  //     Passwordsarray= JSON.parse(passwords)//////////////// THEORY OF HOW TO INPUT DATA WHEN LOGING IN
+  const DeletePass = (id) => {
+    setPasswords(Passwordsarray.filter((item) => item.id != id))
 
-  //   }
-  //   else {
-  //     Passwordsarray = []
-  //   }
+    return toast(`Password was Successfully Deleted!!`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  }
+  const EditPass = (id) => {
+    const pass_set = Passwordsarray.filter((set) => set.id == id)[0];
 
+    setFormdata({ site: `${pass_set.site}`, username: `${pass_set.username}`, password: `${pass_set.password}`, id: `${pass_set.id}` })
+
+    console.log('Following Password is Being Deleted: ', formdata);
+    setPasswords(Passwordsarray.filter((item) => item.id != id))
+
+
+
+
+
+  }
 
 
 
@@ -92,7 +119,7 @@ const Passwords = () => {
         <span className='w-1/5 text-center'>{pass.username}</span>
         <span style={{ WebkitTextSecurity: "disc" }} className='w-1/5 text-center'>{pass.password}</span>
         <span className='w-1/5 text-center '>
-          <button className='edit '>
+          <button className='edit ' onClick={(e) => { EditPass(pass.id) }}>
             <lord-icon
               src="https://cdn.lordicon.com/gwlusjdu.json"
               trigger="hover"
@@ -100,7 +127,7 @@ const Passwords = () => {
               className='w-6 align-middle'>
             </lord-icon>
           </button>
-          <button className='edit '>
+          <button className='Delete ' onClick={(e) => { DeletePass(pass.id) }}>
             <lord-icon
               src="https://cdn.lordicon.com/skkahier.json"
               trigger="hover"
@@ -119,6 +146,21 @@ const Passwords = () => {
   return (
 
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover= {false}
+        theme="light"
+        transition="Bounce"
+      />
+      {/* Same as */}
+      <ToastContainer />
       <div >
         <div className="container  max-w-7/9 mx-auto">
 

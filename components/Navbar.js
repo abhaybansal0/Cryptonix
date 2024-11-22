@@ -8,13 +8,13 @@ const Navbar = () => {
                 <div className='text-lg text-black '>Cryptonix</div>
 
 
-                <ul className='text-xl text-black flex gap-10'>
+                <ul className='text-xl text-black flex gap-10 align-middle '>
                     <Link href=""><li>Passwords</li></Link>
                     <Link href=""><li>Vault</li></Link>
                     <Link href=""><li>Notes</li></Link>
                     <Link href=""><li>
 
-                        <button className=' p-1 px-3 bg-black  text-center text-white border rounded-md'>Log In</button>
+                        <button className='inline p-2 px-4 bg-black  text-center text-white border rounded-md'>Log In</button>
                     </li></Link>
                 </ul>
 
