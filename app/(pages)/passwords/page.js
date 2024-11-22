@@ -30,6 +30,8 @@ const Passwordspage = () => {
         console.log(data);
 
         setPasswords(Array.isArray(data) ? data : [data]);
+        console.log("Passwords Were Fetched Successfully!");
+        
 
         
       } catch (error) {

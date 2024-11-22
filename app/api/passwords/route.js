@@ -23,9 +23,10 @@ export async function POST(request) {
         const data = await request.json();
         const newPassword = await PasswordModel.create(data);
         return new Response(JSON.stringify(newPassword), {
-            status: 201,
+            status: 200,
             headers: { 'Content-Type': 'application/json' },
         });
+        
     } catch (error) {
         return new Response(JSON.stringify({ error: 'Error saving password' }), {
             status: 500,
