@@ -1,5 +1,6 @@
 "use client"
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, } from 'react'
+import { useSession } from "next-auth/react"
 import './page.css'
 import Form from 'next/form'
 
@@ -13,6 +14,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 const Passwordspage = () => {
+
+  const { data: session } = useSession();
 
   const [passwordArray, setPasswords] = useState([]);
 
@@ -31,9 +34,9 @@ const Passwordspage = () => {
 
         setPasswords(Array.isArray(data) ? data : [data]);
         console.log("Passwords Were Fetched Successfully!");
-        
 
-        
+
+
       } catch (error) {
         console.error("Error fetching passwords:", error);
       }
@@ -154,6 +157,22 @@ const Passwordspage = () => {
 
 
 
+  const Notloged = () => {
+
+    if (session) {
+      return (<></>)
+    }
+    else {
+      return <div className='p-3 border-2 border-solid border-red-400 rounded-lg flex justify-center items-center gap-3'>
+        <img src="./exclamation.gif" alt="Exclamation!" className='w-7 '/>
+        Sign In to Save Your Passwords.
+      </div>
+    }
+
+  }
+
+
+
   return (
 
     <>
@@ -201,8 +220,8 @@ const Passwordspage = () => {
                 </div>
               </div>
 
-              <div className='mt-7'>
-                <button type='submit' className='min-w-fit p-3 bg-black flex items-center gap-3 text-white border rounded-xl mx-auto'>
+              <div className='mt-7 flex items-center justify-center gap-3'>
+                <button type='submit' className='min-w-fit p-3 bg-black flex items-center gap-3 text-white border rounded-xl'>
                   <lord-icon
                     src="https://cdn.lordicon.com/jgnvfzqg.json"
                     trigger="hover"
@@ -211,6 +230,8 @@ const Passwordspage = () => {
                   >
                   </lord-icon>Add Password
                 </button>
+
+                <Notloged />
               </div>
             </Form>
           </section>
@@ -235,7 +256,6 @@ const Passwordspage = () => {
 
 
               </div>
-
 
 
               {/* ///////////////////////////////////////////////////////// passwordArray */}

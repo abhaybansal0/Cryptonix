@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import Script from "next/script";
+import SessioWrapper from "./component/SessionWrapper";
 
 
 
@@ -28,12 +29,16 @@ export default function RootLayout({ children }) {
       <head>
         <Script src="https://cdn.lordicon.com/lordicon.js"></Script>
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
 
-      </body>
+      <SessioWrapper >
+
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          {children}
+
+        </body>
+      </SessioWrapper>
     </html>
   );
 }

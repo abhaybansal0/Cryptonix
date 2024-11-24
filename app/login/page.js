@@ -2,14 +2,20 @@
 import React from 'react'
 import Link from 'next/link'
 import './page.css'
-import { signIn } from 'next-auth/react';
+import { useSession, signIn, signOut } from "next-auth/react"
 
 
 const Login = () => {
 
-    const handleLogin = () => {
-        signIn('google'); // This will trigger Google authentication
-    };
+
+    const { data: session } = useSession()
+
+    if (session) {
+        return <>
+            Signed in as {session.user.email} <br />
+            <button onClick={() => signOut()}>Sign out</button>
+        </>
+    }
 
 
     return (
@@ -26,7 +32,7 @@ const Login = () => {
 
             </div>
             <button className='bg-black text-white w-fit py-4 px-8 border rounded-full '
-                onClick={handleLogin}
+                onClick={() => signIn('google')}
             >
                 Log In
             </button>
@@ -35,3 +41,33 @@ const Login = () => {
 }
 
 export default Login;
+
+
+
+
+
+
+
+
+
+
+
+// "use client"
+// import Image from "next/image";
+// import { useSession, signIn, signOut } from "next-auth/react";
+
+
+
+// export default function Home() {
+//   const { data: session } = useSession()
+//   if(session) {
+//     return <>
+//       Signed in as {session.user.email} <br/>
+//       <button onClick={() => signOut()}>Sign out</button>
+//     </>
+//   }
+//   return <>
+//     Not signed in <br/>
+//     <button onClick={() => signIn()}>Sign in</button>
+//   </>
+// }
