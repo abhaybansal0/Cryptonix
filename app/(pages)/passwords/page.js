@@ -1,15 +1,10 @@
 "use client"
-import React, { useEffect, useRef, useState, } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { useSession } from "next-auth/react"
 import './page.css'
 import Form from 'next/form'
 
 import { v4 as uuidv4 } from 'uuid';
-
-
-
-
-
 
 
 
@@ -19,54 +14,68 @@ const Passwordspage = () => {
 
   const [passwordArray, setPasswords] = useState([]);
 
+
+
   // Fetch passwords from server (GET)
   useEffect(() => {
-    const fetchPasswords = async () => {
-      try {
-        const response = await fetch('/api/passwords', {
-          method: 'GET',
-          headers: {
-            "Content-Type": "application/json",
-          }
-        });
-        const data = await response.json();
-        console.log(data);
+    if (session) {
+      const email = session.user.email;
 
-        setPasswords(Array.isArray(data) ? data : [data]);
-        console.log("Passwords Were Fetched Successfully!");
+      const fetchPasswords = async () => {
+        try {
+          const response = await fetch(`/api/passwords?email=${email}`, {
+            method: 'GET',
+            headers: {
+              "Content-Type": "application/json",
+            }
+          });
+          const data = await response.json();
+          // console.log(data);
 
+          setPasswords(Array.isArray(data) ? data : [data]);
+          console.log(data);
 
+          console.log("Passwords Were Fetched Successfully!");
 
-      } catch (error) {
-        console.error("Error fetching passwords:", error);
-      }
-    };
+        } catch (error) {
+          console.error("Error fetching passwords:", error);
+        }
+      };
+      fetchPasswords();
+    }
 
-    fetchPasswords();
-  }, []);
+  }, [session])
 
   // Send new passwords to the server (POST)
+
+
   useEffect(() => {
-    if (passwordArray.length === 0) return; // Don't run POST if array is empty
 
-    const savePasswords = async () => {
-      try {
-        const response = await fetch('/api/passwords', {
-          method: 'POST',
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(passwordArray),
-        });
-        const result = await response.json();
-        console.log('Passwords were saved');
-      } catch (error) {
-        console.error('Error saving passwords:', error);
-      }
-    };
+    if (session?.user?.email) {
 
-    savePasswords();
-  }, [passwordArray]);
+      const savePasswords = async () => {
+        // console.log('I am rerendered');
+        const email = session.user.email;
+        try {
+          const response = await fetch(`/api/passwords?email=${email}`, {
+            method: 'POST',
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(passwordArray),
+          });
+          const result = await response.json();
+
+          console.log('Passwords were saved in the database');
+        } catch (error) {
+          console.error('Error saving passwords:', error);
+        }
+      };
+
+      savePasswords();
+
+    } // Don't run POST if array is empty
+  }, [passwordArray])
 
 
 
@@ -84,7 +93,7 @@ const Passwordspage = () => {
     setFormdata({ ...formdata, [name]: value })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault(); // prevents reloading of page
 
     if (formdata.password.trim() == '',
@@ -97,31 +106,79 @@ const Passwordspage = () => {
 
     console.log("Info Submitted: ", formdata);
     setFormdata({ site: '', username: '', password: '' })
-  }
+
+  }, [formdata])
 
 
   const DeletePass = (id) => {
-    setPasswords(passwordArray.filter((item) => item.id != id))
     console.log('Following Password is Being Deleted: ', formdata);
 
+
+    if (session?.user?.email) {
+
+      const DeletePassword = async () => {
+        // console.log('I am rerendered');
+        const email = session.user.email;
+        try {
+          const response = await fetch(`/api/passwords?email=${email}&&id=${id}`, {
+            method: 'DELETE',
+            headers: {
+              "Content-Type": "application/json",
+            }
+          });
+          const result = await response.json();
+
+          console.log('Password has been deleted from the database');
+        } catch (error) {
+          console.error('Error saving passwords:', error);
+        }
+      };
+
+      DeletePassword();
+      setPasswords(passwordArray.filter((item) => item.id != id))
+    }
   }
+
+
   const EditPass = (id) => {
+    if (session?.user?.email) {
+
+      const DeletePassword = async () => {
+        // console.log('I am rerendered');
+        const email = session.user.email;
+        try {
+          const response = await fetch(`/api/passwords?email=${email}&&id=${id}`, {
+            method: 'DELETE',
+            headers: {
+              "Content-Type": "application/json",
+            }
+          });
+          const result = await response.json();
+
+          console.log('Password has been deleted from the database');
+        } catch (error) {
+          console.error('Error saving passwords:', error);
+        }
+      };
+
+      DeletePassword();
+      setPasswords(passwordArray.filter((item) => item.id != id))
+
+
+    }
+
     const pass_set = passwordArray.filter((set) => set.id == id)[0];
 
     setFormdata({ site: `${pass_set.site}`, username: `${pass_set.username}`, password: `${pass_set.password}`, id: `${pass_set.id}` })
 
     setPasswords(passwordArray.filter((item) => item.id != id))
-
-
-
-
-
   }
 
 
 
-  const Pass = ({ pass, index }) => {
-    let color = '';
+  const Pass = useCallback(({ pass, index }) => {
+
+    let color = ''
     if (index % 2 == 0) {
       color = "#f2f2f2";
     } else {
@@ -153,24 +210,26 @@ const Passwordspage = () => {
         </span>
       </div>
     )
-  }
+
+  },
+    [passwordArray],
+  )
 
 
 
   const Notloged = () => {
 
     if (session) {
+
       return (<></>)
     }
     else {
       return <div className='p-3 border-2 border-solid border-red-400 rounded-lg flex justify-center items-center gap-3'>
-        <img src="./exclamation.gif" alt="Exclamation!" className='w-7 '/>
+        <img src="./exclamation.gif" alt="Exclamation!" className='w-7 ' />
         Sign In to Save Your Passwords.
       </div>
     }
-
   }
-
 
 
   return (
@@ -260,16 +319,20 @@ const Passwordspage = () => {
 
               {/* ///////////////////////////////////////////////////////// passwordArray */}
 
+              {session?.user?.email ? (passwordArray.lenght !== 0 ? passwordArray.map((pass, index) => {
+                return (
+                  <Pass key={index} pass={pass} index={index} />
+                )
+              }) : <>No old Passwords</>) : (<>Loading...</>)}
 
 
-
-              {passwordArray ? (passwordArray.map((pass, index) => {
+              {/* {passwordArray ? (passwordArray.map((pass, index) => {
                 return (
                   <Pass key={index} pass={pass} index={index} />
                 )
               })) : (
                 <h4>No Passwords Available</h4>
-              )}
+              )} */}
             </div>
 
 
