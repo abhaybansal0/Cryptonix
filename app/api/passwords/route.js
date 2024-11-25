@@ -122,7 +122,7 @@ export async function DELETE(req, res) {
         for(const user of users) {
             try {
                 
-                if(user === email)  mongoose.connection.db.collection(`${email}`).deleteOne({id: `${id}`});
+                if(user === email)  mongoose.connection.db.collection(`${email}`).deleteMany({id: `${id}`});
                 console.log(`Password with id ${id} was deleted`);
             } catch (error) {
                 console.log('Error was:', error);

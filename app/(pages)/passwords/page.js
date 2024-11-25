@@ -233,7 +233,7 @@ const Passwordspage = () => {
 
   const [eye, setEye] = useState(false)
 
-  
+
 
 
 
@@ -249,7 +249,7 @@ const Passwordspage = () => {
             <Form onSubmit={handleSubmit} initialvalues={formdata}>
 
               <div className="input_area border rounded-3xl  bg-gray-200 mt-10 0 p-5 text-center 
-            flex flex-col justify-center gap-6 py-10">
+            flex flex-col justify-center gap-6 py-10 shadow-md">
 
                 <div className="email">
                   <input
@@ -258,7 +258,7 @@ const Passwordspage = () => {
                     value={formdata.site}
                     name='site'
                     placeholder='Site URL'
-                    className='w-full'
+                    className='w-full shadow-sm'
                     onChange={handleChange}
                   />
                 </div>
@@ -270,7 +270,7 @@ const Passwordspage = () => {
                     name='username'
                     value={formdata.username}
                     placeholder='Username'
-                    className='w-3/5'
+                    className='w-3/5 shadow-sm'
                     onChange={handleChange} />
 
                   <div className='flex items-center justify-center w-2/5 gap-3 '>
@@ -280,10 +280,10 @@ const Passwordspage = () => {
                       value={formdata.password}
                       name='password'
                       placeholder='Password'
-                      className='w-full'
+                      className='w-full shadow-sm'
                       onChange={handleChange} />
-                      {eye ? <img src="./openeye.svg" alt="open" onClick={() => setEye(!eye)} />
-                      :   <img src="./closedeye.svg" alt="closed" onClick={() => setEye(!eye)} />
+                    {eye ? <img src="./openeye.svg" alt="open" onClick={() => setEye(!eye)} />
+                      : <img src="./closedeye.svg" alt="closed" onClick={() => setEye(!eye)} />
                     }
                     {/* <Eyeed /> */}
                   </div>
@@ -291,7 +291,7 @@ const Passwordspage = () => {
               </div>
 
               <div className='mt-7 flex items-center justify-center gap-3'>
-                <button type='submit' className='min-w-fit p-3 bg-black flex items-center gap-3 text-white border rounded-xl'>
+                <button type='submit' className='min-w-fit p-3 bg-black flex hover:shadow-xl items-center gap-3 text-white border rounded-xl'>
                   <lord-icon
                     src="https://cdn.lordicon.com/jgnvfzqg.json"
                     trigger="hover"
@@ -313,7 +313,7 @@ const Passwordspage = () => {
               <h1 className='text-black text-2xl font-bold mb-5'>Your Passwords</h1>
             </div>
 
-            <div className="pass_container">
+            <div className="pass_container min-h-6/10 shadow-xl">
 
               <div className='w-full bg-black text-white p-2 border rounded-t-lg
               flex justify-around'>
@@ -334,7 +334,36 @@ const Passwordspage = () => {
                 return (
                   <Pass key={index} pass={pass} index={index} />
                 )
-              }) : <>No old Passwords</>) : (<>Loading...</>)}
+              }) : <>No old Passwords</>) : (
+                <>
+
+                  <div className="border border-blue-100 shadow rounded-lg p-6 max-w-full mx-auto">
+                    <div className="animate-pulse flex space-x-0 w-full">
+                      <div className="flex-1 space-y-6 py-1 gap-8 ">
+                        <div className="flex  py-1 gap-8">
+                        <div className="h-4 bg-slate-300 rounded-lg w-3/5"></div>
+                        <div className="h-4 bg-slate-300 rounded-lg w-2/5"></div>
+                        </div>
+                        <div className="flex  py-1 gap-8">
+                        <div className="h-4 bg-slate-300 rounded-lg w-1/5"></div>
+                        <div className="h-4 bg-slate-300 rounded-lg w-4/5"></div>
+                        </div>
+                        <div className="space-y-3 py-1 flex flex-col gap-4">
+                          <div className="grid grid-cols-3 gap-4 py-1">
+                            <div className="h-4 bg-slate-300 rounded-lg col-span-2"></div>
+                            <div className="h-4 bg-slate-300 rounded-lg col-span-1"></div>
+                          </div>
+                          <div className="h-4 bg-slate-500 rounded-lg py-1"></div>
+                          <div className="grid grid-cols-3 gap-4 ">
+                            <div className="h-4 bg-slate-300 rounded-lg col-span-1"></div>
+                            <div className="h-4 bg-slate-300 rounded-lg col-span-2"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </>)}
 
 
               {/* {passwordArray ? (passwordArray.map((pass, index) => {
