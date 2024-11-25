@@ -6,8 +6,13 @@ import { useSession, signOut } from "next-auth/react"
 
 const Navbar = () => {
 
-    useEffect(() => { setFirstvisit(true) }, [])
-    
+    useEffect(() => {
+        setFirstvisit(true)
+        document.body.addEventListener('click', () => {
+            if (dropdownstate) HandletoggleDropdown();
+        })
+    }, [])
+
     const { data: session } = useSession();
 
     const [dropdownstate, setDropdownstate] = useState(false)
@@ -17,16 +22,14 @@ const Navbar = () => {
         setDropdownstate(!dropdownstate);
     }
 
-    document.body.addEventListener('click', ()=>{
-        if(dropdownstate) HandletoggleDropdown();
-    })
+
 
     const To_Display = () => {
         if (session) {
             return (
                 <>
 
-                    <button className='flex items-center justify-center gap-2' id='dropdownNavbarLink' onClick={() => {HandletoggleDropdown(); setFirstvisit(false)}}>
+                    <button className='flex items-center justify-center gap-2' id='dropdownNavbarLink' onClick={() => { HandletoggleDropdown(); setFirstvisit(false) }}>
                         <img src={session.user.image} alt="Profile"
                             className='w-12 rounded-full'
                         />
