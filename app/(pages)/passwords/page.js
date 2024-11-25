@@ -282,8 +282,8 @@ const Passwordspage = () => {
                       placeholder='Password'
                       className='w-full shadow-sm'
                       onChange={handleChange} />
-                    {eye ? <img src="./openeye.svg" alt="open" onClick={() => setEye(!eye)} />
-                      : <img src="./closedeye.svg" alt="closed" onClick={() => setEye(!eye)} />
+                    {eye ? <img src="./openeye.svg" className='cursor-pointer' alt="open" onClick={() => setEye(!eye)} />
+                      : <img src="./closedeye.svg" className='cursor-pointer' alt="closed" onClick={() => setEye(!eye)} />
                     }
                     {/* <Eyeed /> */}
                   </div>
@@ -291,17 +291,18 @@ const Passwordspage = () => {
               </div>
 
               <div className='mt-7 flex items-center justify-center gap-3'>
-                <button type='submit' className='min-w-fit p-3 bg-black flex hover:shadow-xl items-center gap-3 text-white border rounded-xl'>
-                  <lord-icon
-                    src="https://cdn.lordicon.com/jgnvfzqg.json"
-                    trigger="hover"
-                    colors="primary:#000000"
-                    className='invert'
-                  >
-                  </lord-icon>Add Password
-                </button>
 
-                <Notloged />
+                {session ? (
+                  <button type='submit' className='min-w-fit p-3 bg-black flex hover:shadow-xl items-center gap-3 text-white border rounded-xl'>
+                    <lord-icon
+                      src="https://cdn.lordicon.com/jgnvfzqg.json"
+                      trigger="hover"
+                      colors="primary:#000000"
+                      className='invert'
+                    >
+                    </lord-icon>Add Password
+                  </button>) : <Notloged />}
+
               </div>
             </Form>
           </section>
@@ -341,12 +342,12 @@ const Passwordspage = () => {
                     <div className="animate-pulse flex space-x-0 w-full">
                       <div className="flex-1 space-y-6 py-1 gap-8 ">
                         <div className="flex  py-1 gap-8">
-                        <div className="h-4 bg-slate-300 rounded-lg w-3/5"></div>
-                        <div className="h-4 bg-slate-300 rounded-lg w-2/5"></div>
+                          <div className="h-4 bg-slate-300 rounded-lg w-3/5"></div>
+                          <div className="h-4 bg-slate-300 rounded-lg w-2/5"></div>
                         </div>
                         <div className="flex  py-1 gap-8">
-                        <div className="h-4 bg-slate-300 rounded-lg w-1/5"></div>
-                        <div className="h-4 bg-slate-300 rounded-lg w-4/5"></div>
+                          <div className="h-4 bg-slate-300 rounded-lg w-1/5"></div>
+                          <div className="h-4 bg-slate-300 rounded-lg w-4/5"></div>
                         </div>
                         <div className="space-y-3 py-1 flex flex-col gap-4">
                           <div className="grid grid-cols-3 gap-4 py-1">

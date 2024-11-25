@@ -9,6 +9,12 @@ const Navbar = () => {
     const [dropdownstate, setDropdownstate] = useState(false)
     const [firstvisit, setFirstvisit] = useState(false)
 
+    const [animation, setAnimation] = useState(true)
+    useEffect(() => {
+      setAnimation(false);
+    }, [])
+    
+
 
 
     useEffect(() => {
@@ -45,7 +51,7 @@ const Navbar = () => {
 
                     <button className='flex items-center justify-center gap-2' id='dropdownNavbarLink' onClick={() => { HandletoggleDropdown(); setFirstvisit(false) }}>
                         <img src={session.user.image} alt="Profile"
-                            className='w-12 rounded-full shadow-lg '
+                            className='w-12 rounded-full shadow-sm hover:shadow-md '
                         />
                         <svg className={`${firstvisit ? 'animate-bounce' : 'animate-none'} rounded-full shadow-sm`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#000000"} fill={"none"}>
                             <path d="M18 9.00005C18 9.00005 13.5811 15 12 15C10.4188 15 6 9 6 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -79,7 +85,7 @@ const Navbar = () => {
             return (
 
                 <Link href="/login">
-                    <button className='inline p-2 px-4 bg-black  text-center text-white border rounded-md'>Log In</button>
+                    <button className='inline p-2 px-4 bg-black  text-center text-white border rounded-md shadow-sm hover:shadow-lg'>Log In</button>
                 </Link>
             )
         }
@@ -87,19 +93,28 @@ const Navbar = () => {
 
     return (
         <div className='flex items-center' >
+
+             {/* /////////////// ANIMATION //////////////////////// */}
+            <div className={`Protection fixed w-screen h-screen top-0 left-0 duration-700 
+            ${animation ? 'opacity-1 z-20  backdrop-blur-xl' : 'opacity-0 -z-10  backdrop-blur-none'}
+            flex items-center justify-center filter `}>
+                <img src="./protection.png" alt="Home Img" 
+                className='w-72'/>
+            </div>
+
             <nav className='bg-white min-w-full p-8 py-auto flex justify-around align-middle'>
                 <Link href="/dashboard">
                     <div className='text-2xl text-black font-bold flex items-center justify-center gap-4'>
                         <img src="./protection.png" alt="icon"
-                            className='w-12' /
-                        >Cryptonix
+                            className='w-12 filter drop-shadow-md hover:drop-shadow-lg' />
+                        Cryptonix
                     </div>
                 </Link>
 
 
                 <ul className='text-xl text-black flex gap-10 justify-center items-center'>
-                    <Link href="/passwords"><li>Passwords</li></Link>
-                    <Link href="/dashboard#documents"><li>Documents</li></Link>
+                    <Link href="/passwords"><li className='filter  hover:drop-shadow-lg' >Passwords</li></Link>
+                    <Link href="/dashboard#documents"><li className='filter  hover:drop-shadow-lg'>Documents</li></Link>
                     <Link href=""><li></li></Link>
 
                     <li><To_Display /></li>

@@ -14,7 +14,7 @@ const Dashboard = () => {
                 <h1 className='welcometitle text-3xl text-center'>Welcome To Your Vault<span className='Blinker'>.</span></h1>
 
                 <a href="https://portfolio-flame-psi-83.vercel.app" target='__blank'>
-                    <button className="btn aboutbtn">About Us</button>
+                    <button className="btn p-3 px-5">About Us</button>
                 </a>
             </section>
 
