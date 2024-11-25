@@ -231,6 +231,11 @@ const Passwordspage = () => {
     }
   }
 
+  const [eye, setEye] = useState(false)
+
+  
+
+
 
   return (
 
@@ -268,14 +273,20 @@ const Passwordspage = () => {
                     className='w-3/5'
                     onChange={handleChange} />
 
-                  <input
-                    type="password"
-                    id='password'
-                    value={formdata.password}
-                    name='password'
-                    placeholder='Password'
-                    className='w-2/5'
-                    onChange={handleChange} />
+                  <div className='flex items-center justify-center w-2/5 gap-3 '>
+                    <input
+                      type={`${eye ? 'text' : 'password'}`}
+                      id='password'
+                      value={formdata.password}
+                      name='password'
+                      placeholder='Password'
+                      className='w-full'
+                      onChange={handleChange} />
+                      {eye ? <img src="./openeye.svg" alt="open" onClick={() => setEye(!eye)} />
+                      :   <img src="./closedeye.svg" alt="closed" onClick={() => setEye(!eye)} />
+                    }
+                    {/* <Eyeed /> */}
+                  </div>
                 </div>
               </div>
 

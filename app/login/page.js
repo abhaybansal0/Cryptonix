@@ -11,10 +11,28 @@ const Login = () => {
     const { data: session } = useSession()
 
     if (session) {
-        return <>
-            Signed in as {session.user.email} <br />
-            <button onClick={() => signOut()}>Sign out</button>
-        </>
+        return (
+
+            <>
+                <div className='flex flex-col justify-center items-center gap-12
+                    w-screen h-screen bg-white text-black text-4xl
+                        text-center'>
+                    <div>
+
+                        Signed in as {session.user.email.split('@')[0]}
+                        <span className='max-w-fit mx-0 hilightgoogel'>
+                            @gmail.com
+                        </span>
+
+                    </div>
+                    <button className='bg-black text-white w-fit py-4 px-8 border rounded-full '
+                        onClick={() => signOut()}
+                    >
+                        Sign Out
+                    </button>
+                </div>
+            </>
+        )
     }
 
 

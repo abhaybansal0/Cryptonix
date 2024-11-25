@@ -1,18 +1,16 @@
-import React from 'react'
+import React, { memo } from 'react'
 import Image from 'next/image'
 
 
-const Footer = () => {
+const Footer = memo(() => {
   return (
-    <div className='flex flex-col justify-center align-middle bg-white text-slate-900 py-10 gap-5'>
-      <div className="medialinks text-center">
-        {/* <img
-          src="@/app/assets/images/insta.svg"
-          alt="Picture of the author"
-          width={50}
-          height={50}
-        /> */}
-        HERE____HERE____HERE____HERE
+    <div className='flex flex-col justify-center align-middle bg-white text-slate-900 mt-10 pb-5 gap-3'>
+      <div className="medialinks text-center flex items-center justify-center gap-10">
+
+        <img src="./instagram.png" alt="insta" className='w-6 ' />
+        <img src="./linkedin.png" alt="linkedin" className='w-6' />
+        <img src="./github.png" alt="github" className='w-6' />
+        <img src="twitter.png" alt="X" className='w-6' />
       </div>
 
       <div className="footerlinks text-center px-auto mx-auto ">
@@ -24,10 +22,10 @@ const Footer = () => {
           <a href=""><li>Security</li></a>
         </ul>
 
-        <h4 className='text-slate-600 text-md mt-4'>Cruptonix @ 2024</h4>
+        <h4 className='text-slate-600 text-md mt-2'>Cruptonix @ 2024</h4>
       </div>
     </div>
   )
-}
+})
 
 export default Footer
