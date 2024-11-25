@@ -15,19 +15,19 @@ const Login = () => {
 
             <>
                 <div className='flex flex-col justify-center items-center gap-12
-                    w-screen h-screen bg-white text-black text-4xl
+                    w-screen h-screen bg-white text-black text-4xl md:text-2xl
                         text-center'>
                     <div>
-                        <div className="home absolute left-5 top-5"><Link href="/dashboard"><img src="./Home.png" alt="" className='w-9' /></Link></div>
+                        <div className="home absolute left-5 top-5"><Link href="/dashboard"><img src="./Home.png" alt="" className='w-10' /></Link></div>
                         <div>
                             Signed in as {session.user.email.split('@')[0]}
-                            <span className='max-w-fit mx-0 hilightgoogel'>
+                            <span className='max-w-fit mx-0 ml-1 hilightgoogel'>
                                 @gmail.com
                             </span>
                         </div>
 
                     </div>
-                    <button className='bg-black text-white w-fit py-4 px-8 border rounded-full '
+                    <button className='bg-black text-white w-fit py-4 px-8 border rounded-full md:text-xl'
                         onClick={() => signOut()}
                     >
                         Sign out
@@ -40,11 +40,15 @@ const Login = () => {
 
     return (
         <div className='flex flex-col justify-center items-center gap-12
-                 w-screen h-screen bg-white text-black text-4xl
+                 w-screen h-screen bg-white text-black text-4xl md:text-3xl
                  text-center'>
             <div>
 
-            <div className="home absolute left-5 top-5"><Link href="/dashboard"><img src="./Home.png" alt="" className='w-9'/></Link></div>
+                <div className="home absolute left-5 top-5">
+                    <Link href="/dashboard">
+                        <img src="./Home.png" alt="" className='w-10' />
+                    </Link>
+                </div>
                 <div>
                     Please Log in With Your
                     <span className='max-w-fit mx-3 hilightgoogel'>
@@ -54,9 +58,8 @@ const Login = () => {
                 </div>
 
             </div>
-            <button className='bg-black text-white w-fit py-4 px-8 border rounded-full '
-                onClick={() => signIn('google')}
-            >
+            <button className='bg-black text-white w-fit py-4 px-8 border rounded-full md:text-xl'
+                onClick={() => signIn('google')} >
                 Log In
             </button>
         </div>

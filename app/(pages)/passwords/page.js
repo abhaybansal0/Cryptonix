@@ -79,7 +79,7 @@ const Passwordspage = () => {
 
 
 
-  const nooms = useRef(passwordArray.length)
+  const [screenTop, setScreenTop] = useState(0);
 
 
   const [formdata, setFormdata] = useState({
@@ -163,6 +163,14 @@ const Passwordspage = () => {
 
       DeletePassword();
       setPasswords(passwordArray.filter((item) => item.id != id))
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth", // Optional: Makes the scrolling smooth
+        });
+      }
+      scrollToTop();
+
 
 
     }
@@ -186,10 +194,10 @@ const Passwordspage = () => {
     }
     return (
       <div className='slide' >
-        <span className='w-2/5 text-center'>{pass.site}</span>
-        <span className='w-1/5 text-center'>{pass.username}</span>
-        <span style={{ WebkitTextSecurity: "disc" }} className='w-1/5 text-center'>{pass.password}</span>
-        <span className='w-1/5 text-center '>
+        <span className='w-2/5 md:w-1/4 text-center'>{pass.site}</span>
+        <span className='w-1/5 md:w-1/4 text-center'>{pass.username}</span>
+        <span style={{ WebkitTextSecurity: "disc" }} className='w-1/5 md:w-1/4 text-center'>{pass.password}</span>
+        <span className='w-1/5 md:w-1/4 text-center  flex justify-center items-center'>
           <button className='edit ' onClick={(e) => { EditPass(pass.id) }}>
             <lord-icon
               src="https://cdn.lordicon.com/gwlusjdu.json"
@@ -242,13 +250,13 @@ const Passwordspage = () => {
     <>
 
       <div >
-        <div className="container  max-w-7/9 mx-auto">
+        <div className="container   max-w-7/9 mx-auto md:p-6 md:max-w-full">
 
-          <section className="pass_editor">
+          <section className="pass_editor w-full">
 
             <Form onSubmit={handleSubmit} initialvalues={formdata}>
 
-              <div className="input_area border rounded-3xl  bg-gray-200 mt-10 0 p-5 text-center 
+              <div className="input_area border rounded-3xl w-3/4 md:w-full mx-auto  bg-gray-200 mt-10 0 p-5 text-center 
             flex flex-col justify-center gap-6 py-10 shadow-md">
 
                 <div className="email">
@@ -263,7 +271,7 @@ const Passwordspage = () => {
                   />
                 </div>
 
-                <div className='flex gap-10 justify-center'>
+                <div className='flex gap-10 justify-center md:gap-3'>
                   <input
                     type="text"
                     id='username'
@@ -273,7 +281,7 @@ const Passwordspage = () => {
                     className='w-3/5 shadow-sm'
                     onChange={handleChange} />
 
-                  <div className='flex items-center justify-center w-2/5 gap-3 '>
+                  <div className='flex items-center justify-center w-2/5 gap-3'>
                     <input
                       type={`${eye ? 'text' : 'password'}`}
                       id='password'
@@ -293,7 +301,7 @@ const Passwordspage = () => {
               <div className='mt-7 flex items-center justify-center gap-3'>
 
                 {session ? (
-                  <button type='submit' className='min-w-fit p-3 bg-black flex hover:shadow-xl items-center gap-3 text-white border rounded-xl'>
+                  <button type='submit' className='min-w-fit p-3 bg-black flex hover:shadow-xl items-center gap-3 text-white border rounded-xl mx-auto'>
                     <lord-icon
                       src="https://cdn.lordicon.com/jgnvfzqg.json"
                       trigger="hover"
@@ -308,7 +316,7 @@ const Passwordspage = () => {
           </section>
 
 
-          <section className='stored_passwords mt-20 '>
+          <section className='stored_passwords mt-20 w-3/4 mx-auto md:w-full'>
 
             <div className='pass_header'>
               <h1 className='text-black text-2xl font-bold mb-5'>Your Passwords</h1>
@@ -320,10 +328,10 @@ const Passwordspage = () => {
               flex justify-around'>
 
 
-                <span className='w-2/5 text-center'>Site</span>
-                <span className='w-1/5 text-center'>Username</span>
-                <span className='w-1/5 text-center'>Password</span>
-                <span className='w-1/5 text-center'>Actions</span>
+                <span className='w-2/5 md:w-1/4 text-center'>Site</span>
+                <span className='w-1/5 md:w-1/4 text-center'>Username</span>
+                <span className='w-1/5 md:w-1/4 text-center'>Password</span>
+                <span className='w-1/5 md:w-1/4 text-center'>Actions</span>
 
 
               </div>
