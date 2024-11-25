@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useSession, signOut } from "next-auth/react"
 
 
-const Navbar = memo(() => {
+const Navbar = () => {
 
     useEffect(() => { setFirstvisit(true) }, [])
     
@@ -84,6 +84,6 @@ const Navbar = memo(() => {
             </nav>
         </div>
     )
-})
+}
 
 export default Navbar

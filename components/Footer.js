@@ -1,8 +1,8 @@
-import React, { memo } from 'react'
+import React from 'react'
 import Image from 'next/image'
 
 
-const Footer = memo(() => {
+const Footer = () => {
   return (
     <div className='flex flex-col justify-center align-middle bg-white text-slate-900 mt-10 pb-5 gap-3'>
       <div className="medialinks text-center flex items-center justify-center gap-10">
@@ -26,6 +26,6 @@ const Footer = memo(() => {
       </div>
     </div>
   )
-})
+}
 
 export default Footer
